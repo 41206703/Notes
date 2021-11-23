@@ -465,7 +465,7 @@
         - 删除指定的key 的Cookie。 如果key 不存在则什么也不发生。
 
 - Django中的cookies
-    - 使用 响应对象HttpResponse 等 将cookie保存进客户端
+    - 使用 响应对象HttpRespon se 等 将cookie保存进客户端
         1. 方法1
             ```python
             from django.http import HttpResponse
@@ -552,7 +552,7 @@
 
 
 ### session 会话控制
-- 什么是session
+- 什么是session 
   
 - session又名会话控制，是在服务器上开辟一段空间用于保留浏览器和服务器交互时的重要数据
   
