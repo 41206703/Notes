@@ -87,7 +87,7 @@
             ... ...,
             '自定义应用名称'
         ]
-
+        
         ```
     - 如:
         ```python
@@ -241,7 +241,7 @@
         ```python
         # file : bookstore/models.py
         from django.db import models
-
+        
         class Book(models.Model):
             title = models.CharField("书名", max_length=50, default='')
             price = models.DecimalField('定价', max_digits=7, decimal_places=2, default=0.0)
@@ -264,14 +264,14 @@
         - `python3 manage.py migrate`
     - 注:
       
-- 每次修改完模型类再对服务程序运行之前都需要做以上两步迁移操作。
-  ​      
-    - 生成迁移脚本文件`bookstore/migrations/0001_initial.py`并进行迁移
-        ```shell
-        $ python3 manage.py makemigrations
-        $ python3 manage.py migrate
-        ```
-
+    - 每次修改完模型类再对服务程序运行之前都需要做以上两步迁移操作。
+      ​      ``
+        - 生成迁移脚本文件`bookstore/migrations/0001_initial.py`并进行迁移
+            ```shell
+            $ python3 manage.py makemigrations
+            $ python3 manage.py migrate
+            ```
+    
 2. 编写模型类Models
     - 模型类需继承自`django.db.models.Model`
         1. Models的语法规范
@@ -548,3 +548,4 @@ kill -9 13984 14914
 
 
 
+​		

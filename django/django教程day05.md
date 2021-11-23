@@ -7,7 +7,7 @@
 ## admin 后台数据库管理
 - django 提供了比较完善的后台管理数据库的接口，可供开发过程中调用和测试使用
 - django 会搜集所有已注册的模型类，为这些模型类提拱数据管理界面，供开发者使用
-- 使用步骤:
+-  使用步骤:
     1. 创建后台管理帐号:
         - 后台管理--创建管理员帐号 
 
@@ -47,7 +47,7 @@
         # file: bookstore/admin.py
         from django.contrib import admin
         # Register your models here.
-
+        
         from . import models
         ...
         admin.site.register(models.Book)  # 将Book类注册为可管理页面
@@ -88,10 +88,10 @@
         # file : bookstore/admin.py
         from django.contrib import admin
         from . import models
-
+        
         class BookAdmin(admin.ModelAdmin):
             list_display = ['id', 'title', 'price', 'market_price']
-
+        
         admin.site.register(models.Book, BookAdmin)
         ```
         - 进入<http://127.0.0.1:8000/admin/bookstore/book/> 查看显示方式和以前有所不同
@@ -105,7 +105,7 @@
     6. 其它参见<https://docs.djangoproject.com/en/1.11/ref/contrib/admin/>
 
 
-### 数据库表管理
+### 数据库表管理（Meta类）
 1. 修改模型类字段的显示名字
     - 模型类各字段的第一个参数为 verbose_name,此字段显示的名字会在后台数据库管理页面显示
     - 通过 verbose_name 字段选项,修改显示名称示例如下：
@@ -157,7 +157,7 @@
     ```python
     class A(model.Model):
         ...
-
+    
     class B(model.Model):
         属性 = models.OneToOneField(A)
     ```
@@ -234,12 +234,12 @@
     ```python
     class A(model.Model):
         ...
-
+    
     class B(model.Model):
         属性 = models.ForeignKey(多对一中"一"的模型类, ...)
     ```
 
-2. 外键类ForeignKey 
+2. 外键类ForeignK ey 
     - 构造函数:
         ```python
         ForeignKey(to, on_delete, **options)
@@ -273,11 +273,11 @@
         class Publisher(models.Model):
             '''出版社'''
             name = models.CharField('名称', max_length=50, unique=True)
-
+        
         class Book(models.Model):
             title = models.CharField('书名', max_length=50)
             publisher = models.ForeignKey(Publisher, null=True)
-
+        
         ```
     - 创建一对多的对象
         ```python
@@ -287,7 +287,7 @@
         models.Book.objects.create(title='C++', publisher=pub1)
         models.Book.objects.create(title='Java', publisher=pub1)
         models.Book.objects.create(title='Python', publisher=pub1)
-
+        
         pub2 = models.Publisher.objects.create(name='北京大学出版社')
         models.Book.objects.create(title='西游记', publisher=pub2)
         models.Book.objects.create(title='水浒', publisher=pub2)
@@ -342,7 +342,7 @@
     ```python
     class Author(models.Model):
         ...
-
+    
     class Book(models.Model):
         ...
         authors = models.ManyToManyField(Author)
@@ -380,24 +380,24 @@
     - 多对多视图操作
     ```python
     from django.http import HttpResponse
-
+    
     from . import models
-
+    
     def many2many_init(request):
         # 创建两人个作者
         author1 = models.Author.objects.create(name='吕泽')
         author2 = models.Author.objects.create(name='王老师')
-
+    
         # 吕择和王老师同时写了一本Python
         book11 = author1.book_set.create(title="Python")
         author2.book_set.add(book11)  #
-
+    
         # 王老师还写了两本书
         book21 = author2.book_set.create(title="C")  # 创建一本新书"C"
         book22 = author2.book_set.create(title="C++")  # 创建一本新书"C++"
-
+    
         return HttpResponse("初始化成功")
-
+    
     def show_many2many(request):
         authors = models.Author.objects.all()
         for auth in authors:
@@ -421,7 +421,7 @@
     | 12 | 王老师    |
     +----+-----------+
     2 rows in set (0.00 sec)
-
+    
     mysql> select * from many2many_book;
     +----+--------+
     | id | title  |
@@ -431,7 +431,7 @@
     | 15 | C++    |
     +----+--------+
     3 rows in set (0.00 sec)
-
+    
     mysql> select * from many2many_book_author;
     +----+---------+-----------+
     | id | book_id | author_id |
@@ -540,7 +540,7 @@
             class User(models.Model):
                 username = models.CharField("用户名", max_length=30, unique=True)
                 password = models.CharField("密码", max_length=30)
-
+            
                 def __str__(self):
                     return "用户" + self.username
             ```
