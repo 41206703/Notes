@@ -304,7 +304,7 @@ MyMW process_response do ---
                 self.visit_times[ip_address] = times + 1
                 if times < 5:
                     return
-
+        
                 return HttpResponse('你已经访问过' + str(times) + '次，您被禁止了')
         ```
 
@@ -322,7 +322,7 @@ MyMW process_response do ---
     - 不让其它表单提交到此 Django 服务器
 - 解决方案:
     1. 取消 csrf 验证(不推荐)
-       
+      
         - 删除 settings.py 中 MIDDLEWARE 中的 `django.middleware.csrf.CsrfViewMiddleware` 的中间件
     3. 通过验证 csrf_token 验证
         ```python
@@ -494,14 +494,14 @@ Paginator对象的page()方法返回Page对象，不需要手动构造
     from django.http import HttpResponse, Http404
     from django.conf import settings
     import os
-
+    
     def upload_view(request):
         if request.method == 'GET':
             return render(request, 'index/upload.html')
         elif request.method == "POST":
             a_file = request.FILES['myfile']
             print("上传文件名是:", a_file.name)
-
+    
             filename =os.path.join(settings.MEDIA_ROOT, a_file.name)
             with open(filename, 'wb') as f:
                 data = a_file.file.read()
